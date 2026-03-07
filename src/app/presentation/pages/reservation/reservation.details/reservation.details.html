@@ -1,0 +1,15 @@
+<section class="column gap-4">
+  <div>
+    <button routerLink="/reservations">Retour</button>
+  </div>
+
+  <h2 class="text-2xl">Réservation N°{{id}}</h2>
+  <hr>
+
+  @if (!reservation()) {
+    Not found
+  } @else {
+    <reservation-card [reservation]="reservation()!"></reservation-card>
+  }
+
+</section>

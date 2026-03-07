@@ -1,0 +1,48 @@
+<section class="column gap-4">
+  <div>
+    <button routerLink="/reservations">Annuler</button>
+  </div>
+
+  <h2 class="text-2xl">Faire une réservation</h2>
+  <hr>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="column gap-4">
+    <details open>
+      <summary>Informations itinéraire</summary>
+      <div class="column gap-4">
+        <input formControlName="startDate" type="datetime-local"/>
+        <div class="row gap-2">
+          <input formControlName="startLocalisation" type="text" placeholder="📍 Point de rendez-vous" class="flex-1"/>
+          <input formControlName="destination" type="text" placeholder="🎯 Destination" class="flex-1"/>
+        </div>
+      </div>
+    </details>
+    <hr>
+    <details open>
+      <summary>Informations personnelles</summary>
+      <div class="column gap-4">
+        <input formControlName="phone" type="text" placeholder="📞 Téléphone"/>
+        <textarea formControlName="description" placeholder="Description (optionnel)"></textarea>
+      </div>
+    </details>
+    <hr>
+    <details open>
+      <summary>Informations additionnelles</summary>
+      <div>
+        <input formControlName="suitcaseWarning" type="checkbox" id="suitcase-warning"/>
+        <label for="suitcase-warning"> 🧳 valises (3 ou +)</label>
+      </div>
+
+      <div>
+        <input formControlName="babyWarning" type="checkbox" id="baby-warning"/>
+        <label for="baby-warning"> 🚸 siège enfant</label>
+      </div>
+    </details>
+    <br>
+    <button type="submit">Valider</button>
+  </form>
+
+  @if (createdReservationId()) {
+    <p>Reservation created: #{{ createdReservationId() }}</p>
+  }
+</section>

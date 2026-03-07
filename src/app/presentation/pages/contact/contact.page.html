@@ -1,0 +1,51 @@
+<section class="contact-page column gap-4">
+  <header class="contact-page__header">
+    <div>
+      <p class="contact-page__eyebrow">Directory</p>
+      <h2 class="text-2xl font-bold">Contacts</h2>
+      <p class="contact-page__subtext">Each contact stores only a full name and a phone number.</p>
+    </div>
+    <p class="contact-page__count">{{ contacts().length }} total</p>
+  </header>
+
+  <section class="contact-page__panel column gap-3">
+    <h3>Add a contact</h3>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="column gap-3">
+      <div class="row gap-3 contact-page__grid">
+        <input formControlName="fullName" type="text" placeholder="Full name"/>
+        <input formControlName="phone" type="tel" placeholder="Phone number"/>
+      </div>
+      <div class="row justify-between items-center gap-3 contact-page__actions">
+        <p class="contact-page__error" [class.show]="submitted() && form.invalid">Please enter a valid full name and phone number.</p>
+        <button type="submit">Add contact</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="contact-page__panel column gap-3">
+    <input
+      type="text"
+      placeholder="Search by name or number"
+      [value]="search()"
+      (input)="updateSearch($any($event.target).value)"/>
+
+    @if (filteredContacts().length === 0) {
+      <article class="contact-page__empty">
+        <strong>No contacts found</strong>
+        <p>Try another search term.</p>
+      </article>
+    } @else {
+      <ul class="contact-page__list">
+        @for (contact of filteredContacts(); track contact.id) {
+          <li class="contact-page__item">
+            <div>
+              <p class="contact-page__name">{{ contact.fullName }}</p>
+              <p class="contact-page__phone">{{ contact.phone }}</p>
+            </div>
+            <button type="button" (click)="removeContact(contact.id)">Remove</button>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</section>

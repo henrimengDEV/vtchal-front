@@ -1,0 +1,84 @@
+<section class="booking column gap-4">
+  <header class="booking__header">
+    <p class="booking__eyebrow">Taxi Customer</p>
+    <h2 class="text-2xl font-bold">Book your next ride</h2>
+    <p class="booking__subtext">Fill in your trip details and confirm your booking request.</p>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="column gap-4">
+    <section class="booking__panel column gap-3">
+      <h3>Trip details</h3>
+      <div class="row gap-3 booking__grid-2">
+        <input formControlName="pickup" type="text" placeholder="Pickup location"/>
+        <input formControlName="dropoff" type="text" placeholder="Drop-off location"/>
+      </div>
+      <div class="row gap-3 booking__grid-3">
+        <input formControlName="pickupDateTime" type="datetime-local"/>
+        <label class="booking__field column gap-1">
+          <span>Distance (km): {{ form.controls.distanceKm.value }}</span>
+          <input formControlName="distanceKm" type="range" min="1" max="80"/>
+        </label>
+        <label class="booking__field column gap-1">
+          <span>Passengers</span>
+          <input formControlName="passengers" type="number" min="1" max="6"/>
+        </label>
+      </div>
+    </section>
+
+    <section class="booking__panel column gap-3">
+      <h3>Service preferences</h3>
+      <div class="row gap-3 booking__grid-2">
+        <label class="booking__field column gap-1">
+          <span>Vehicle type</span>
+          <select formControlName="vehicleType">
+            <option value="standard">Standard</option>
+            <option value="van">Van</option>
+            <option value="premium">Premium</option>
+          </select>
+        </label>
+        <label class="booking__field column gap-1">
+          <span>Payment method</span>
+          <select formControlName="paymentMethod">
+            <option value="card">Card</option>
+            <option value="cash">Cash</option>
+            <option value="wallet">Wallet</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="row gap-3 booking__checks">
+        <label><input formControlName="childSeat" type="checkbox"/> Child seat</label>
+        <label><input formControlName="extraLuggage" type="checkbox"/> Extra luggage</label>
+        <label><input formControlName="roundTrip" type="checkbox"/> Round trip</label>
+      </div>
+    </section>
+
+    <section class="booking__panel column gap-3">
+      <h3>Contact</h3>
+      <div class="row gap-3 booking__grid-2">
+        <input formControlName="customerName" type="text" placeholder="Full name"/>
+        <input formControlName="phone" type="tel" placeholder="Phone number"/>
+      </div>
+      <textarea formControlName="notes" rows="3" placeholder="Driver instructions (optional)"></textarea>
+    </section>
+
+    <section class="booking__summary row justify-between items-center gap-3">
+      <div>
+        <p class="booking__price">Estimated fare: {{ estimatedPrice() }} EUR</p>
+        <p class="booking__eta">Estimated pickup ETA: {{ estimatedEta() }}</p>
+      </div>
+      <button type="submit">Confirm booking</button>
+    </section>
+  </form>
+
+  @if (submitted() && form.invalid) {
+    <p class="booking__error">Please complete all required fields before confirming.</p>
+  }
+
+  @if (submittedPayload(); as payload) {
+    <section class="booking__success">
+      <strong>Booking request captured.</strong>
+      <pre>{{ payload | json }}</pre>
+    </section>
+  }
+</section>

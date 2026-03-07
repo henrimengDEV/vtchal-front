@@ -1,0 +1,26 @@
+.info {
+  background-color: #204252;
+  color: #58c4dc;
+  border-radius: 5px;
+  padding: 3px 10px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 0 0 #58c4dc;
+}
+
+.warning {
+  background-color: #4d3a30;
+  color: #fabd62;
+  border-radius: 5px;
+  padding: 3px 10px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 0 0 #fabd62;
+}
+
+.success {
+  background-color: #294647;
+  color: #40c145;
+  border-radius: 5px;
+  padding: 3px 10px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 0 0 #40c145;
+}

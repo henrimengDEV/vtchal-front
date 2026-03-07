@@ -1,0 +1,9 @@
+<div class="initials" [attr.aria-label]="alt() || fullName()">
+  {{ initials() }}
+</div>
+
+@if (presenceIndicator()) {
+  <div class="presence-indicator"
+       [class.is-online]="presenceIndicator() === 'online'"
+       [class.is-offline]="presenceIndicator() === 'offline'"></div>
+}

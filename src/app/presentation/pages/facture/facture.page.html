@@ -1,0 +1,129 @@
+<section class="facture-page column gap-4">
+  <header class="facture-page__header">
+    <div>
+      <p class="facture-page__eyebrow">Billing</p>
+      <h2 class="text-2xl font-bold">Factures</h2>
+      <p class="facture-page__subtext">A facture is linked to one user, one reservation, and an optional document.</p>
+    </div>
+  </header>
+
+  <section class="facture-page__panel column gap-3">
+    <h3>Create facture</h3>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="column gap-3">
+      <div class="facture-page__grid-2 row gap-3">
+        <label class="facture-page__field column gap-1">
+          <span>User</span>
+          <select formControlName="userFullName" (change)="onUserChange($any($event.target).value)">
+            @for (user of users(); track user) {
+              <option [value]="user">{{ user }}</option>
+            }
+          </select>
+        </label>
+        <label class="facture-page__field column gap-1">
+          <span>Reservation</span>
+          <select formControlName="reservationId" (change)="onReservationChange($any($event.target).value)">
+            <option value="">Select reservation</option>
+            @for (reservation of reservationOptions(); track reservation.id) {
+              <option [value]="reservation.id">#{{ reservation.id }} - {{ reservation.pointDePriseEnCharge }} -> {{ reservation.destination }}</option>
+            }
+          </select>
+        </label>
+      </div>
+
+      <div class="facture-page__grid-4 row gap-3">
+        <label class="facture-page__field column gap-1">
+          <span>Amount</span>
+          <input formControlName="amount" type="number" min="1" step="1"/>
+        </label>
+        <label class="facture-page__field column gap-1">
+          <span>Status</span>
+          <select formControlName="status">
+            <option value="draft">Draft</option>
+            <option value="sent">Sent</option>
+            <option value="paid">Paid</option>
+          </select>
+        </label>
+        <label class="facture-page__field column gap-1">
+          <span>Issued date</span>
+          <input formControlName="issuedAt" type="date"/>
+        </label>
+        <label class="facture-page__field column gap-1">
+          <span>Due date</span>
+          <input formControlName="dueAt" type="date"/>
+        </label>
+      </div>
+
+      <div class="facture-page__grid-2 row gap-3">
+        <label class="facture-page__field column gap-1">
+          <span>Document URL (optional)</span>
+          <input formControlName="documentUrl" type="url" placeholder="https://..."/>
+        </label>
+        <label class="facture-page__field column gap-1">
+          <span>Document file (optional)</span>
+          <input type="file" accept=".pdf,.doc,.docx,.png,.jpg" (change)="onFileSelected($event)"/>
+          @if (selectedFileName()) {
+            <small>Selected: {{ selectedFileName() }}</small>
+          }
+        </label>
+      </div>
+
+      <div class="row justify-between items-center facture-page__actions">
+        <p class="facture-page__error" [class.show]="submitted() && form.invalid">Please complete all required fields.</p>
+        <button type="submit">Create facture</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="facture-page__panel column gap-3">
+    <div class="facture-page__toolbar row gap-3">
+      <input
+        type="text"
+        placeholder="Search facture by id, user, or reservation"
+        [value]="search()"
+        (input)="updateSearch($any($event.target).value)"/>
+      <div class="facture-page__filters">
+        <button type="button" [class.active]="statusFilter() === 'all'" (click)="setStatusFilter('all')">All</button>
+        <button type="button" [class.active]="statusFilter() === 'draft'" (click)="setStatusFilter('draft')">Draft</button>
+        <button type="button" [class.active]="statusFilter() === 'sent'" (click)="setStatusFilter('sent')">Sent</button>
+        <button type="button" [class.active]="statusFilter() === 'paid'" (click)="setStatusFilter('paid')">Paid</button>
+      </div>
+    </div>
+
+    @if (filteredInvoices().length === 0) {
+      <article class="facture-page__empty">
+        <strong>No factures found</strong>
+        <p>Create one from the form above.</p>
+      </article>
+    } @else {
+      <ul class="facture-page__list">
+        @for (invoice of filteredInvoices(); track invoice.id) {
+          <li class="facture-page__item">
+            <div class="facture-page__item-head">
+              <strong>{{ invoice.id }}</strong>
+              <span [class]="statusClass(invoice.status)">{{ statusLabel(invoice.status) }}</span>
+            </div>
+            <p><strong>User:</strong> {{ invoice.userFullName }}</p>
+            <p><strong>Reservation:</strong> <a [routerLink]="['/reservations', invoice.reservationId]">#{{ invoice.reservationId }}</a></p>
+            <p><strong>Amount:</strong> {{ invoice.amount }} EUR</p>
+            <p><strong>Dates:</strong> {{ invoice.issuedAt }} -> {{ invoice.dueAt }}</p>
+            @if (invoice.documentName || invoice.documentUrl) {
+              <p>
+                <strong>Document:</strong>
+                @if (invoice.documentName) {
+                  {{ invoice.documentName }}
+                }
+                @if (invoice.documentName && invoice.documentUrl) {
+                  ·
+                }
+                @if (invoice.documentUrl) {
+                  <a [href]="invoice.documentUrl" target="_blank" rel="noreferrer">Open link</a>
+                }
+              </p>
+            }
+            <button type="button" (click)="removeInvoice(invoice.id)">Remove</button>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</section>

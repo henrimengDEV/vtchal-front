@@ -1,0 +1,62 @@
+main {
+  min-height: 100vh;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  position: relative;
+  overflow: hidden;
+}
+
+/*.Admin {*/
+/*  background-color: #e4e9ec;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
+
+.main__content {
+
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  background-color: white;
+  padding: 2rem;
+  overflow: hidden;
+  width: 70%;
+  min-width: 375px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .main__content {
+    width: 100%;
+  }
+}
+
+.SearchBar {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  background-color: rgb(248, 248, 248);
+  border-radius: 8px;
+}
+
+.button-group {
+  gap: 0.5rem;
+  align-items: center;
+  flex-flow: wrap;
+  background-color: rgb(248, 248, 248);
+  width: fit-content;
+  padding: 5px;
+  border-radius: 12px;
+  display: flex;
+
+  button {
+    background-color: transparent;
+    color: gray;
+
+    &:active, &.active {
+      background-color: white;
+      color: black;
+    }
+  }
+}

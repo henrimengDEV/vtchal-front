@@ -1,0 +1,27 @@
+<article class="reservation-card">
+  <header class="reservation-card__header">
+    <div>
+      <h3>{{ reservation().nomClient }}</h3>
+      <p class="reservation-card__vehicle">{{ reservation().modele }} · {{ reservation().plaqueImmatriculation }}</p>
+    </div>
+    <div class="reservation-card__actions">
+      <span class="reservation-card__status" [class]="'reservation-card__status reservation-card__status--' + reservation().status">
+        {{ statusLabel(reservation().status) }}
+      </span>
+      <button [routerLink]="reservation().id">Details</button>
+    </div>
+  </header>
+
+  <p class="reservation-card__route">
+    {{ reservation().pointDePriseEnCharge }} -> {{ reservation().destination }}
+  </p>
+
+  <p class="reservation-card__meta">
+    {{ reservation().nombreDePersonnes }} passenger(s)
+    @if (reservation().bagages.length > 0) {
+      · {{ reservation().bagages.join(', ') }}
+    } @else {
+      · No luggage
+    }
+  </p>
+</article>

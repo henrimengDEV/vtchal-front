@@ -1,0 +1,77 @@
+.reservation-card {
+  background: #ffffff;
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.reservation-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.reservation-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.reservation-card__vehicle {
+  font-size: 0.85rem;
+  color: #5f6e7f;
+}
+
+.reservation-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.reservation-card__status {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+}
+
+.reservation-card__status--todo {
+  background: #ecfdf3;
+  color: #067647;
+}
+
+.reservation-card__status--in-progress {
+  background: #eff8ff;
+  color: #175cd3;
+}
+
+.reservation-card__status--done {
+  background: #f2f4f7;
+  color: #344054;
+}
+
+.reservation-card__route {
+  font-size: 0.95rem;
+  color: #101828;
+}
+
+.reservation-card__meta {
+  font-size: 0.85rem;
+  color: #5f6e7f;
+}
+
+@media (max-width: 680px) {
+  .reservation-card__header {
+    flex-direction: column;
+  }
+
+  .reservation-card__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

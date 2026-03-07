@@ -1,0 +1,24 @@
+<main>
+  <section class="main__content">
+
+    <section class="row justify-between items-center">
+      <div class="row gap-4 items-center">
+        <avatar class="size-20" fullName="Chalana Meng"/>
+        <h2 class="text-2xl font-bold">Bonjour Chalana</h2>
+      </div>
+      <button>Se deconnecter</button>
+    </section>
+
+    <section class="button-group">
+      <button routerLink="/contacts" [class.active]="isActive('/contacts')()">Contacts</button>
+      <button routerLink="/reservations" [class.active]="isActive('/reservations')()">Reservations</button>
+      <button routerLink="/factures" [class.active]="isActive('/factures')()">Factures</button>
+      <button routerLink="/booking" [class.active]="isActive('/booking')()">Booking</button>
+    </section>
+
+    <br>
+
+    <router-outlet/>
+
+  </section>
+</main>

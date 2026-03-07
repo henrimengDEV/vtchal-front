@@ -1,0 +1,50 @@
+:host {
+  --avatar-size: theme('width.10');
+  --avatar-border-radius: theme('borderRadius.full');
+  --avatar-bg: #111827;
+  --avatar-fg: #f9fafb;
+  --avatar-presence-indicator-size: 20%;
+  --avatar-presence-indicator-position-top: 5%;
+  --avatar-presence-indicator-position-end: 5%;
+  --avatar-presence-indicator-online-bg: theme('colors.green.500');
+  --avatar-presence-indicator-offline-bg: theme('colors.neutral.300');
+  --avatar-presence-indicator-outline: theme('colors.white');
+  --avatar-inner-border: inset 0 0 2px theme('borderColor.DEFAULT');
+
+  @apply inline-flex select-none flex-none relative;
+  box-shadow: var(--avatar-inner-border);
+
+  &:not([class*="rounded"]) {
+    @apply rounded-[var(--avatar-border-radius)];
+  }
+
+  &:not([class*="w-"]):not([class*="size-"]) {
+    @apply w-[var(--avatar-size)];
+  }
+
+  &:not([class*="h-"]):not([class*="size-"]) {
+    @apply h-[var(--avatar-size)];
+  }
+
+  .initials {
+    @apply inline-flex items-center justify-center w-full h-full z-[1] font-bold;
+    border-radius: inherit;
+    background: var(--avatar-bg);
+    color: var(--avatar-fg);
+    letter-spacing: 0.04em;
+  }
+
+  .presence-indicator {
+    @apply absolute z-[1] outline outline-[var(--avatar-presence-indicator-outline)] rounded-full;
+    @apply w-[var(--avatar-presence-indicator-size)] h-[var(--avatar-presence-indicator-size)];
+    @apply top-[var(--avatar-presence-indicator-position-top)] end-[var(--avatar-presence-indicator-position-end)];
+
+    &.is-online {
+      @apply bg-[var(--avatar-presence-indicator-online-bg)];
+    }
+
+    &.is-offline {
+      @apply bg-[var(--avatar-presence-indicator-offline-bg)];
+    }
+  }
+}

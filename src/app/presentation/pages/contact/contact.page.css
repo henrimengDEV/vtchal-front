@@ -1,0 +1,88 @@
+.contact-page {
+  /*max-width: 900px;*/
+}
+
+.contact-page__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.contact-page__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  color: #54606f;
+  font-weight: 700;
+}
+
+.contact-page__subtext,
+.contact-page__count,
+.contact-page__phone {
+  color: #5f6e7f;
+}
+
+.contact-page__panel {
+  background: #f6f8fa;
+  border: 1px solid #d6dde4;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.contact-page__grid > * {
+  flex: 1;
+}
+
+.contact-page__actions {
+  flex-wrap: wrap;
+}
+
+.contact-page__error {
+  color: #b42318;
+  opacity: 0;
+}
+
+.contact-page__error.show {
+  opacity: 1;
+}
+
+.contact-page__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-page__item {
+  background: white;
+  border: 1px solid #dde3ea;
+  border-radius: 10px;
+  padding: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.contact-page__name {
+  font-weight: 700;
+}
+
+.contact-page__empty {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 0.8rem;
+}
+
+@media (max-width: 720px) {
+  .contact-page__header,
+  .contact-page__grid,
+  .contact-page__item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

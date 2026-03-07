@@ -1,0 +1,57 @@
+<section class="reservation-page column gap-4">
+  <header class="reservation-page__header">
+    <div>
+      <p class="reservation-page__eyebrow">Dashboard</p>
+      <h2 class="text-2xl font-bold">Reservations</h2>
+      <p class="reservation-page__subtext">Track upcoming rides and manage active trips quickly.</p>
+    </div>
+    <button routerLink="/reservations/form">New reservation</button>
+  </header>
+
+  <section class="reservation-page__stats">
+    <article class="reservation-page__stat-card">
+      <p>Total</p>
+      <strong>{{ stats().total }}</strong>
+    </article>
+    <article class="reservation-page__stat-card">
+      <p>To do</p>
+      <strong>{{ stats().todo }}</strong>
+    </article>
+    <article class="reservation-page__stat-card">
+      <p>In progress</p>
+      <strong>{{ stats().inProgress }}</strong>
+    </article>
+    <article class="reservation-page__stat-card">
+      <p>Done</p>
+      <strong>{{ stats().done }}</strong>
+    </article>
+  </section>
+
+  <section class="reservation-page__controls column gap-3">
+    <input
+      type="text"
+      placeholder="Search by client, car, pickup, destination, or plate"
+      [value]="search()"
+      (input)="updateSearch($any($event.target).value)"/>
+
+    <div class="reservation-page__filters">
+      <button type="button" [class.active]="statusFilter() === 'all'" (click)="setStatusFilter('all')">All</button>
+      <button type="button" [class.active]="statusFilter() === 'todo'" (click)="setStatusFilter('todo')">To do</button>
+      <button type="button" [class.active]="statusFilter() === 'in-progress'" (click)="setStatusFilter('in-progress')">In progress</button>
+      <button type="button" [class.active]="statusFilter() === 'done'" (click)="setStatusFilter('done')">Done</button>
+    </div>
+  </section>
+
+  <section class="column gap-4">
+    @if (filteredReservations().length === 0) {
+      <article class="reservation-page__empty">
+        <strong>No reservations found</strong>
+        <p>Try changing your search or status filter.</p>
+      </article>
+    } @else {
+      @for (reservation of filteredReservations(); track reservation.id) {
+        <reservation-card [reservation]="reservation"/>
+      }
+    }
+  </section>
+</section>
